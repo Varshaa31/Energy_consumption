@@ -7,6 +7,40 @@ class EnergyApp {
       data: null,
       charts: {},
       updateInterval: null,
+      sponsoredProducts: [
+        {
+          id: 1,
+          product_name: "Philips Hue White LED Smart Bulb",
+          category: "Lighting",
+          sponsor_company: "Philips",
+          energy_saving_percentage: 80,
+          price: 29.99,
+          link: "https://www.philips-hue.com/smartbulb",
+          image_url: "https://demo.philips-hue.com/white-led.jpg",
+          funding_amount: 1000,
+          analytics: {
+            impressions: 0,
+            clicks: 0,
+            ctr: 0,
+          },
+        },
+        {
+          id: 2,
+          product_name: "Nest Learning Thermostat",
+          category: "HVAC",
+          sponsor_company: "Google",
+          energy_saving_percentage: 15,
+          price: 249.99,
+          link: "https://store.google.com/nest-thermostat",
+          image_url: "https://demo.nest.com/thermostat.jpg",
+          funding_amount: 2000,
+          analytics: {
+            impressions: 0,
+            clicks: 0,
+            ctr: 0,
+          },
+        },
+      ],
     };
     this.init();
   }
@@ -437,6 +471,191 @@ class EnergyApp {
     if (progressFill) {
       progressFill.style.width = `${this.state.data.real_time.current_efficiency}%`;
     }
+
+    // Update recommendations with sponsored products
+    this.updateRecommendations();
+    this.renderPredictionsChart();
+  }
+
+  updateRecommendations() {
+    const recommendationsList = document.querySelector(".recommendations-list");
+    if (!recommendationsList) return;
+
+    // Keep existing recommendations
+    const existingRecommendations = recommendationsList.innerHTML;
+
+    // Add sponsored recommendations
+    const sponsoredHTML = this.getSponsoredRecommendations();
+    recommendationsList.innerHTML = existingRecommendations + sponsoredHTML;
+
+    // Add click handlers for sponsored products
+    this.initSponsoredProductTracking();
+  }
+
+  getSponsoredRecommendations() {
+    // Match products with current usage patterns
+    const activeAppliances = this.state.data.appliances.filter(
+      (a) => a.status === "on"
+    );
+    const relevantProducts = this.state.sponsoredProducts.filter((product) =>
+      activeAppliances.some((appliance) => appliance.type === product.category)
+    );
+
+    if (!relevantProducts.length) return "";
+
+    return relevantProducts
+      .map((product) => {
+        // Track impression
+        product.analytics.impressions++;
+        product.analytics.ctr =
+          (product.analytics.clicks / product.analytics.impressions) * 100;
+
+        return `
+          <div class="recommendation sponsored-recommendation" data-product-id="${product.id}">
+            <div class="rec-icon">
+              <img src="${product.image_url}" alt="${product.product_name}" style="width: 40px; height: 40px; border-radius: 8px;">
+            </div>
+            <div class="rec-content">
+              <div class="rec-title">
+                ${product.product_name}
+                <span class="sponsored-label">Sponsored</span>
+              </div>
+              <div class="rec-description">
+                Save ${product.energy_saving_percentage}% on energy consumption
+              </div>
+              <div class="rec-savings">
+                Price: $${product.price}
+                <a href="${product.link}" class="buy-now-btn" target="_blank" rel="noopener">
+                  Buy Now →
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      })
+      .join("");
+  }
+
+  initSponsoredProductTracking() {
+    document.querySelectorAll(".sponsored-recommendation").forEach((rec) => {
+      const productId = rec.dataset.productId;
+      const product = this.state.sponsoredProducts.find(
+        (p) => p.id === parseInt(productId)
+      );
+
+      rec.querySelector(".buy-now-btn").addEventListener("click", (e) => {
+        // Track click
+        product.analytics.clicks++;
+        product.analytics.ctr =
+          (product.analytics.clicks / product.analytics.impressions) * 100;
+
+        // Analytics event
+        this.trackSponsoredClick(product);
+      });
+    });
+  }
+
+  trackSponsoredClick(product) {
+    console.log("Sponsored product clicked:", {
+      product_name: product.product_name,
+      sponsor_company: product.sponsor_company,
+      analytics: product.analytics,
+    });
+  }
+
+  renderPredictionsChart() {
+    const predictionCtx = document.getElementById("predictionsChart");
+    if (!predictionCtx) {
+      // Create canvas for predictions
+      const chartCard = document.querySelector(
+        "#predictions-tab .predictions-grid"
+      );
+      if (chartCard) {
+        const chartContainer = document.createElement("div");
+        chartContainer.className = "prediction-chart-card card";
+        chartContainer.innerHTML = `
+          <div class="card__body">
+            <h3>Energy Usage Predictions</h3>
+            <div class="chart-container" style="position: relative; height: 300px;">
+              <canvas id="predictionsChart"></canvas>
+            </div>
+          </div>
+        `;
+        chartCard.insertBefore(chartContainer, chartCard.firstChild);
+      }
+    }
+
+    // Initialize predictions chart
+    const ctx = document.getElementById("predictionsChart");
+    if (!ctx) return;
+
+    if (this.state.charts.predictions) {
+      this.state.charts.predictions.destroy();
+    }
+
+    // Generate prediction data
+    const dates = [];
+    const predictions = [];
+    const confidence = [];
+
+    for (let i = 0; i < 7; i++) {
+      const date = new Date();
+      date.setDate(date.getDate() + i);
+      dates.push(date.toLocaleDateString());
+
+      // Simulate predictions with some randomness
+      const basePrediction = 45 + Math.random() * 10;
+      predictions.push(basePrediction);
+
+      // Confidence intervals (±10%)
+      confidence.push([basePrediction * 0.9, basePrediction * 1.1]);
+    }
+
+    this.state.charts.predictions = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: dates,
+        datasets: [
+          {
+            label: "Predicted Usage",
+            data: predictions,
+            borderColor: "#1FB8CD",
+            tension: 0.4,
+            fill: false,
+          },
+          {
+            label: "Confidence Range",
+            data: confidence,
+            backgroundColor: "rgba(31, 184, 205, 0.2)",
+            borderWidth: 0,
+            fill: true,
+            radius: 0,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: "Next 7 Days Energy Usage Prediction",
+          },
+          tooltip: {
+            mode: "index",
+            intersect: false,
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: "Energy Usage (kWh)",
+            },
+          },
+        },
+      },
+    });
   }
 
   renderAppliances() {
