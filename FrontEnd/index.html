@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnergyAI - Smart Energy Management Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Loading EnergyAI...</h2>
+        </div>
+    </div>
+
+    <!-- Alert Banner -->
+    <div id="alertBanner" class="alert-banner hidden">
+        <div class="container">
+            <div class="alert-content">
+                <div class="alert-icon">⚠️</div>
+                <div class="alert-text">
+                    <strong>High Energy Usage Detected</strong>
+                    <span>Your current consumption is 20% above normal. Consider adjusting your AC settings.</span>
+                </div>
+                <button class="alert-close" onclick="closeAlert()">×</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">EnergyAI</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-section="appliances">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Appliances</span>
+                </a>
+                <a href="#" class="nav-item" data-section="analytics">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Analytics</span>
+                </a>
+                <a href="#" class="nav-item" data-section="gamification">
+                    <span class="nav-icon">🏆</span>
+                    <span class="nav-text">Gamification</span>
+                </a>
+                <a href="#" class="nav-item" data-section="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1 id="pageTitle">Dashboard</h1>
+                    <div class="header-subtitle">
+                        <span id="lastUpdate">Last updated: Just now</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="notification-btn">
+                        <span class="notification-icon">🔔</span>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">👤</div>
+                        <div class="user-info">
+                            <span class="user-name">John Doe</span>
+                            <span class="user-status">Level 7</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Sections -->
+            <div class="content-area">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="content-section active">
+                    <div class="dashboard-grid">
+                        <!-- Real-time Metrics Cards -->
+                        <div class="metrics-row">
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <h3>Current Usage</h3>
+                                    <span class="metric-icon">⚡</span>
+                                </div>
+                                <div class="metric-value">
+                                    <span id="currentUsage">8.95</span>
+                                    <span class="unit">kW</span>
+                                </div>
+                                <div class="metric-change positive">
+                                    <span>+2.3% from yesterday</span>
+                                </div>
+                            </div>
+
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <h3>Active Appliances</h3>
+                                    <span class="metric-icon">🏠</span>
+                                </div>
+                                <div class="metric-value">
+                                    <span id="activeAppliances">6</span>
+                                    <span class="unit">devices</span>
+                                </div>
+                                <div class="metric-change">
+                                    <span>60% of total devices</span>
+                                </div>
+                            </div>
+
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <h3>Efficiency Score</h3>
+                                    <span class="metric-icon">📊</span>
+                                </div>
+                                <div class="metric-value">
+                                    <span id="efficiencyScore">78</span>
+                                    <span class="unit">%</span>
+                                </div>
+                                <div class="efficiency-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 78%"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <h3>Daily Cost</h3>
+                                    <span class="metric-icon">💰</span>
+                                </div>
+                                <div class="metric-value">
+                                    <span>$</span><span id="dailyCost">6.24</span>
+                                </div>
+                                <div class="metric-change negative">
+                                    <span>+$0.45 from average</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Charts Row -->
+                        <div class="charts-row">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <h3>Consumption Trend</h3>
+                                    <select class="chart-period">
+                                        <option value="24h">Last 24 Hours</option>
+                                        <option value="7d">Last 7 Days</option>
+                                        <option value="30d">Last 30 Days</option>
+                                    </select>
+                                </div>
+                                <div class="chart-container" style="position: relative; height: 300px;">
+                                    <canvas id="consumptionChart"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <h3>Usage by Appliance Type</h3>
+                                </div>
+                                <div class="chart-container" style="position: relative; height: 300px;">
+                                    <canvas id="applianceChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Weather & Recommendations -->
+                        <div class="info-row">
+                            <div class="weather-card card">
+                                <div class="card__body">
+                                    <h3>Weather Impact</h3>
+                                    <div class="weather-info">
+                                        <div class="weather-icon">🌤️</div>
+                                        <div class="weather-details">
+                                            <div class="temperature">24°C</div>
+                                            <div class="humidity">Humidity: 65%</div>
+                                            <div class="condition">Partly Cloudy</div>
+                                        </div>
+                                    </div>
+                                    <div class="weather-impact">
+                                        <span class="impact-label">AC Efficiency:</span>
+                                        <span class="impact-value good">Good</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="recommendations-card card">
+                                <div class="card__body">
+                                    <h3>AI Recommendations</h3>
+                                    <div class="recommendations-list">
+                                        <div class="recommendation">
+                                            <div class="rec-icon">🌡️</div>
+                                            <div class="rec-content">
+                                                <div class="rec-title">Adjust AC Temperature</div>
+                                                <div class="rec-description">Set to 25°C during 2-6 PM to save 8.5%</div>
+                                                <div class="rec-savings">Potential savings: $0.53/day</div>
+                                            </div>
+                                        </div>
+                                        <div class="recommendation">
+                                            <div class="rec-icon">⏰</div>
+                                            <div class="rec-content">
+                                                <div class="rec-title">Schedule Water Heater</div>
+                                                <div class="rec-description">Use off-peak hours for heating</div>
+                                                <div class="rec-savings">Potential savings: $0.77/day</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Appliances Section -->
+                <section id="appliances" class="content-section">
+                    <div class="appliances-header">
+                        <div class="appliances-filters">
+                            <select id="applianceFilter" class="form-control">
+                                <option value="all">All Appliances</option>
+                                <option value="HVAC">HVAC</option>
+                                <option value="Kitchen">Kitchen</option>
+                                <option value="Lighting">Lighting</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Electronics">Electronics</option>
+                            </select>
+                        </div>
+                        <div class="appliances-stats">
+                            <span class="stat">Total: <strong id="totalAppliances">10</strong></span>
+                            <span class="stat">Active: <strong id="activeAppliancesCount">6</strong></span>
+                            <span class="stat">Power: <strong id="totalPower">8.95 kW</strong></span>
+                        </div>
+                    </div>
+                    <div class="appliances-grid" id="appliancesGrid">
+                        <!-- Appliances will be dynamically generated -->
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analytics" class="content-section">
+                    <div class="analytics-tabs">
+                        <button class="tab-btn active" data-tab="consumption">Consumption</button>
+                        <button class="tab-btn" data-tab="costs">Costs</button>
+                        <button class="tab-btn" data-tab="carbon">Carbon Footprint</button>
+                        <button class="tab-btn" data-tab="predictions">Predictions</button>
+                    </div>
+                    
+                    <div class="analytics-content">
+                        <div id="consumption-tab" class="tab-content active">
+                            <div class="analytics-grid">
+                                <div class="chart-card large">
+                                    <div class="chart-header">
+                                        <h3>Historical Consumption</h3>
+                                    </div>
+                                    <div class="chart-container" style="position: relative; height: 400px;">
+                                        <canvas id="historicalChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="stats-cards">
+                                    <div class="stat-card">
+                                        <h4>Average Daily</h4>
+                                        <div class="stat-value">42.3 kWh</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <h4>Peak Usage</h4>
+                                        <div class="stat-value">13.77 kWh</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <h4>Efficiency Trend</h4>
+                                        <div class="stat-value trend-up">+5.4%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="costs-tab" class="tab-content">
+                            <div class="cost-analysis">
+                                <div class="cost-summary">
+                                    <h3>Cost Breakdown</h3>
+                                    <div class="cost-items">
+                                        <div class="cost-item">
+                                            <span>This Month</span>
+                                            <span class="cost-value">$156.34</span>
+                                        </div>
+                                        <div class="cost-item">
+                                            <span>Last Month</span>
+                                            <span class="cost-value">$142.78</span>
+                                        </div>
+                                        <div class="cost-item">
+                                            <span>Difference</span>
+                                            <span class="cost-value increase">+$13.56</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="carbon-tab" class="tab-content">
+                            <div class="carbon-metrics">
+                                <h3>Environmental Impact</h3>
+                                <div class="carbon-stats">
+                                    <div class="carbon-item">
+                                        <span class="carbon-label">Monthly CO₂</span>
+                                        <span class="carbon-value">426 kg</span>
+                                    </div>
+                                    <div class="carbon-item">
+                                        <span class="carbon-label">Trees Equivalent</span>
+                                        <span class="carbon-value">19.4 trees</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="predictions-tab" class="tab-content">
+                            <div class="predictions-grid">
+                                <div class="prediction-card">
+                                    <h4>Tomorrow</h4>
+                                    <div class="prediction-value">48.5 kWh</div>
+                                    <div class="confidence">95% confidence</div>
+                                </div>
+                                <div class="prediction-card">
+                                    <h4>Next Week</h4>
+                                    <div class="prediction-value">323.4 kWh</div>
+                                    <div class="confidence">87% confidence</div>
+                                </div>
+                                <div class="prediction-card">
+                                    <h4>Next Month</h4>
+                                    <div class="prediction-value">1,420 kWh</div>
+                                    <div class="confidence">72% confidence</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gamification Section -->
+                <section id="gamification" class="content-section">
+                    <div class="gamification-header">
+                        <div class="user-level">
+                            <div class="level-badge">
+                                <span class="level-number">7</span>
+                            </div>
+                            <div class="level-info">
+                                <h3>Energy Master</h3>
+                                <div class="xp-bar">
+                                    <div class="xp-progress" style="width: 65%"></div>
+                                </div>
+                                <span class="xp-text">2,450 / 3,000 XP</span>
+                            </div>
+                        </div>
+                        <div class="leaderboard-position">
+                            <span class="position-label">Your Rank</span>
+                            <span class="position-number">#12</span>
+                            <span class="position-total">of 150</span>
+                        </div>
+                    </div>
+
+                    <div class="gamification-grid">
+                        <div class="badges-section card">
+                            <div class="card__body">
+                                <h3>Your Badges</h3>
+                                <div class="badges-grid">
+                                    <div class="badge earned">
+                                        <div class="badge-icon">🌱</div>
+                                        <div class="badge-name">Energy Saver</div>
+                                    </div>
+                                    <div class="badge earned">
+                                        <div class="badge-icon">⏰</div>
+                                        <div class="badge-name">Peak Avoider</div>
+                                    </div>
+                                    <div class="badge locked">
+                                        <div class="badge-icon">🏆</div>
+                                        <div class="badge-name">Efficiency Pro</div>
+                                    </div>
+                                    <div class="badge locked">
+                                        <div class="badge-icon">🌟</div>
+                                        <div class="badge-name">Green Champion</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="challenges-section card">
+                            <div class="card__body">
+                                <h3>Active Challenges</h3>
+                                <div class="challenges-list">
+                                    <div class="challenge-item">
+                                        <div class="challenge-info">
+                                            <h4>Weekend Energy Challenge</h4>
+                                            <p>Keep weekend consumption below weekday average</p>
+                                        </div>
+                                        <div class="challenge-progress">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 75%"></div>
+                                            </div>
+                                            <span class="progress-text">75%</span>
+                                        </div>
+                                        <div class="challenge-reward">+150 XP</div>
+                                    </div>
+                                    <div class="challenge-item">
+                                        <div class="challenge-info">
+                                            <h4>Off-Peak Champion</h4>
+                                            <p>Use 80% of daily energy during off-peak hours</p>
+                                        </div>
+                                        <div class="challenge-progress">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 45%"></div>
+                                            </div>
+                                            <span class="progress-text">45%</span>
+                                        </div>
+                                        <div class="challenge-reward">+200 XP</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="content-section">
+                    <div class="settings-grid">
+                        <div class="settings-card card">
+                            <div class="card__body">
+                                <h3>Energy Goals</h3>
+                                <div class="form-group">
+                                    <label class="form-label">Daily Consumption Target (kWh)</label>
+                                    <input type="number" class="form-control" value="40" min="1" max="200">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Monthly Budget ($)</label>
+                                    <input type="number" class="form-control" value="150" min="50" max="1000">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Efficiency Target (%)</label>
+                                    <input type="number" class="form-control" value="85" min="50" max="100">
+                                </div>
+                                <button class="btn btn--primary">Save Goals</button>
+                            </div>
+                        </div>
+
+                        <div class="settings-card card">
+                            <div class="card__body">
+                                <h3>Preferences</h3>
+                                <div class="form-group">
+                                    <label class="form-label">Currency</label>
+                                    <select class="form-control">
+                                        <option value="USD">USD ($)</option>
+                                        <option value="EUR">EUR (€)</option>
+                                        <option value="GBP">GBP (£)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Temperature Unit</label>
+                                    <select class="form-control">
+                                        <option value="celsius">Celsius (°C)</option>
+                                        <option value="fahrenheit">Fahrenheit (°F)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <input type="checkbox" checked> Email Notifications
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <input type="checkbox" checked> High Usage Alerts
+                                    </label>
+                                </div>
+                                <button class="btn btn--primary">Save Preferences</button>
+                            </div>
+                        </div>
+
+                        <div class="settings-card card">
+                            <div class="card__body">
+                                <h3>Data Export</h3>
+                                <p>Download your energy consumption data for external analysis.</p>
+                                <div class="export-options">
+                                    <button class="btn btn--secondary" onclick="exportData('csv')">Export as CSV</button>
+                                    <button class="btn btn--secondary" onclick="exportData('json')">Export as JSON</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card card">
+                            <div class="card__body">
+                                <h3>System Status</h3>
+                                <div class="system-status">
+                                    <div class="status-item">
+                                        <span class="status-label">API Connection</span>
+                                        <span class="status--success">Connected</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">Data Sync</span>
+                                        <span class="status--success">Up to date</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">Last Backup</span>
+                                        <span>2 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

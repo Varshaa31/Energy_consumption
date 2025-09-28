@@ -1,0 +1,398 @@
+{
+  "appliances": [
+    {
+      "id": 1,
+      "name": "Smart AC",
+      "type": "HVAC",
+      "power_rating": 3500,
+      "status": "on"
+    },
+    {
+      "id": 2,
+      "name": "LED Lights Living Room",
+      "type": "Lighting",
+      "power_rating": 150,
+      "status": "on"
+    },
+    {
+      "id": 3,
+      "name": "Refrigerator",
+      "type": "Kitchen",
+      "power_rating": 400,
+      "status": "on"
+    },
+    {
+      "id": 4,
+      "name": "Smart TV",
+      "type": "Entertainment",
+      "power_rating": 250,
+      "status": "off"
+    },
+    {
+      "id": 5,
+      "name": "Washing Machine",
+      "type": "Appliance",
+      "power_rating": 2000,
+      "status": "off"
+    },
+    {
+      "id": 6,
+      "name": "Water Heater",
+      "type": "Utility",
+      "power_rating": 4500,
+      "status": "on"
+    },
+    {
+      "id": 7,
+      "name": "Dishwasher",
+      "type": "Kitchen",
+      "power_rating": 1800,
+      "status": "off"
+    },
+    {
+      "id": 8,
+      "name": "Smart Thermostat",
+      "type": "HVAC",
+      "power_rating": 50,
+      "status": "on"
+    },
+    {
+      "id": 9,
+      "name": "LED Lights Bedroom",
+      "type": "Lighting",
+      "power_rating": 100,
+      "status": "on"
+    },
+    {
+      "id": 10,
+      "name": "Desktop Computer",
+      "type": "Electronics",
+      "power_rating": 500,
+      "status": "on"
+    }
+  ],
+  "historical_data": [
+    {
+      "date": "2025-08-29",
+      "consumption": 48.86,
+      "cost": 5.86,
+      "carbon_footprint": 19.55,
+      "peak_hours_usage": 14.66,
+      "efficiency_score": 94
+    },
+    {
+      "date": "2025-08-30",
+      "consumption": 44.33,
+      "cost": 5.32,
+      "carbon_footprint": 17.73,
+      "peak_hours_usage": 13.3,
+      "efficiency_score": 95
+    },
+    {
+      "date": "2025-08-31",
+      "consumption": 53.45,
+      "cost": 6.41,
+      "carbon_footprint": 21.38,
+      "peak_hours_usage": 16.04,
+      "efficiency_score": 94
+    },
+    {
+      "date": "2025-09-01",
+      "consumption": 54.11,
+      "cost": 6.49,
+      "carbon_footprint": 21.64,
+      "peak_hours_usage": 16.23,
+      "efficiency_score": 69
+    },
+    {
+      "date": "2025-09-02",
+      "consumption": 48.9,
+      "cost": 5.87,
+      "carbon_footprint": 19.56,
+      "peak_hours_usage": 14.67,
+      "efficiency_score": 77
+    },
+    {
+      "date": "2025-09-03",
+      "consumption": 54.9,
+      "cost": 6.59,
+      "carbon_footprint": 21.96,
+      "peak_hours_usage": 16.47,
+      "efficiency_score": 77
+    },
+    {
+      "date": "2025-09-04",
+      "consumption": 35.96,
+      "cost": 4.31,
+      "carbon_footprint": 14.38,
+      "peak_hours_usage": 10.79,
+      "efficiency_score": 83
+    },
+    {
+      "date": "2025-09-05",
+      "consumption": 55.13,
+      "cost": 6.62,
+      "carbon_footprint": 22.05,
+      "peak_hours_usage": 16.54,
+      "efficiency_score": 95
+    },
+    {
+      "date": "2025-09-06",
+      "consumption": 62.61,
+      "cost": 7.51,
+      "carbon_footprint": 25.04,
+      "peak_hours_usage": 18.78,
+      "efficiency_score": 79
+    },
+    {
+      "date": "2025-09-07",
+      "consumption": 58.33,
+      "cost": 7.0,
+      "carbon_footprint": 23.33,
+      "peak_hours_usage": 17.5,
+      "efficiency_score": 65
+    },
+    {
+      "date": "2025-09-08",
+      "consumption": 59.22,
+      "cost": 7.11,
+      "carbon_footprint": 23.69,
+      "peak_hours_usage": 17.76,
+      "efficiency_score": 87
+    },
+    {
+      "date": "2025-09-09",
+      "consumption": 56.88,
+      "cost": 6.83,
+      "carbon_footprint": 22.75,
+      "peak_hours_usage": 17.06,
+      "efficiency_score": 70
+    },
+    {
+      "date": "2025-09-10",
+      "consumption": 53.46,
+      "cost": 6.41,
+      "carbon_footprint": 21.38,
+      "peak_hours_usage": 16.04,
+      "efficiency_score": 91
+    },
+    {
+      "date": "2025-09-11",
+      "consumption": 48.97,
+      "cost": 5.88,
+      "carbon_footprint": 19.59,
+      "peak_hours_usage": 14.69,
+      "efficiency_score": 77
+    },
+    {
+      "date": "2025-09-12",
+      "consumption": 51.08,
+      "cost": 6.13,
+      "carbon_footprint": 20.43,
+      "peak_hours_usage": 15.33,
+      "efficiency_score": 94
+    },
+    {
+      "date": "2025-09-13",
+      "consumption": 47.95,
+      "cost": 5.75,
+      "carbon_footprint": 19.18,
+      "peak_hours_usage": 14.38,
+      "efficiency_score": 83
+    },
+    {
+      "date": "2025-09-14",
+      "consumption": 60.3,
+      "cost": 7.24,
+      "carbon_footprint": 24.12,
+      "peak_hours_usage": 18.09,
+      "efficiency_score": 66
+    },
+    {
+      "date": "2025-09-15",
+      "consumption": 55.89,
+      "cost": 6.71,
+      "carbon_footprint": 22.36,
+      "peak_hours_usage": 16.77,
+      "efficiency_score": 85
+    },
+    {
+      "date": "2025-09-16",
+      "consumption": 36.76,
+      "cost": 4.41,
+      "carbon_footprint": 14.7,
+      "peak_hours_usage": 11.03,
+      "efficiency_score": 88
+    },
+    {
+      "date": "2025-09-17",
+      "consumption": 59.64,
+      "cost": 7.16,
+      "carbon_footprint": 23.86,
+      "peak_hours_usage": 17.89,
+      "efficiency_score": 66
+    },
+    {
+      "date": "2025-09-18",
+      "consumption": 50.43,
+      "cost": 6.05,
+      "carbon_footprint": 20.17,
+      "peak_hours_usage": 15.13,
+      "efficiency_score": 82
+    },
+    {
+      "date": "2025-09-19",
+      "consumption": 55.22,
+      "cost": 6.63,
+      "carbon_footprint": 22.09,
+      "peak_hours_usage": 16.57,
+      "efficiency_score": 93
+    },
+    {
+      "date": "2025-09-20",
+      "consumption": 52.34,
+      "cost": 6.28,
+      "carbon_footprint": 20.94,
+      "peak_hours_usage": 15.7,
+      "efficiency_score": 70
+    },
+    {
+      "date": "2025-09-21",
+      "consumption": 54.6,
+      "cost": 6.55,
+      "carbon_footprint": 21.84,
+      "peak_hours_usage": 16.38,
+      "efficiency_score": 80
+    },
+    {
+      "date": "2025-09-22",
+      "consumption": 51.83,
+      "cost": 6.22,
+      "carbon_footprint": 20.73,
+      "peak_hours_usage": 15.55,
+      "efficiency_score": 73
+    },
+    {
+      "date": "2025-09-23",
+      "consumption": 35.88,
+      "cost": 4.31,
+      "carbon_footprint": 14.35,
+      "peak_hours_usage": 10.76,
+      "efficiency_score": 79
+    },
+    {
+      "date": "2025-09-24",
+      "consumption": 45.87,
+      "cost": 5.5,
+      "carbon_footprint": 18.35,
+      "peak_hours_usage": 13.76,
+      "efficiency_score": 78
+    },
+    {
+      "date": "2025-09-25",
+      "consumption": 43.34,
+      "cost": 5.2,
+      "carbon_footprint": 17.34,
+      "peak_hours_usage": 13.0,
+      "efficiency_score": 67
+    },
+    {
+      "date": "2025-09-26",
+      "consumption": 45.0,
+      "cost": 5.4,
+      "carbon_footprint": 18.0,
+      "peak_hours_usage": 13.5,
+      "efficiency_score": 85
+    },
+    {
+      "date": "2025-09-27",
+      "consumption": 63.84,
+      "cost": 7.66,
+      "carbon_footprint": 25.54,
+      "peak_hours_usage": 19.15,
+      "efficiency_score": 78
+    }
+  ],
+  "real_time": {
+    "timestamp": "2025-09-28T04:00:24.806966",
+    "total_power": 8950,
+    "active_appliances": 6,
+    "estimated_daily_cost": 6.24,
+    "current_efficiency": 78,
+    "weather": {
+      "temperature": 24,
+      "humidity": 65,
+      "condition": "partly_cloudy"
+    }
+  },
+  "predictions": {
+    "next_day_consumption": 48.5,
+    "next_week_average": 46.2,
+    "monthly_projection": 1420,
+    "cost_savings_potential": 15.8,
+    "efficiency_improvements": [
+      {
+        "appliance": "Smart AC",
+        "current_efficiency": 72,
+        "recommended_action": "Adjust temperature to 25\u00b0C during 2-6 PM",
+        "potential_savings": 8.5
+      },
+      {
+        "appliance": "Water Heater",
+        "current_efficiency": 65,
+        "recommended_action": "Schedule heating during off-peak hours",
+        "potential_savings": 12.3
+      }
+    ]
+  },
+  "anomalies": [
+    {
+      "timestamp": "2025-09-27T14:30:00",
+      "appliance": "Smart AC",
+      "type": "unusual_spike",
+      "severity": "medium",
+      "description": "Power consumption 40% higher than normal for this time period"
+    },
+    {
+      "timestamp": "2025-09-26T22:15:00",
+      "appliance": "Washing Machine",
+      "type": "idle_consumption",
+      "severity": "low",
+      "description": "Consuming 15W while in standby mode"
+    }
+  ],
+  "gamification": {
+    "user_level": 7,
+    "points_earned": 2450,
+    "badges": [
+      {
+        "name": "Energy Saver",
+        "description": "Reduced consumption by 10% this month"
+      },
+      {
+        "name": "Peak Hour Avoider",
+        "description": "Shifted 70% of usage to off-peak hours"
+      },
+      {
+        "name": "Smart Scheduler",
+        "description": "Used automated scheduling for 15 days"
+      }
+    ],
+    "challenges": [
+      {
+        "name": "Weekend Energy Challenge",
+        "description": "Keep weekend consumption below weekday average",
+        "progress": 75,
+        "reward": 150
+      },
+      {
+        "name": "Off-Peak Champion",
+        "description": "Use 80% of daily energy during off-peak hours",
+        "progress": 45,
+        "reward": 200
+      }
+    ],
+    "leaderboard_position": 12,
+    "total_users": 150
+  }
+}
